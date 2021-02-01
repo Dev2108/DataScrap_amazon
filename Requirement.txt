@@ -1,0 +1,5 @@
+Required Packages:
+
+requests
+bs4
+openpyxl
