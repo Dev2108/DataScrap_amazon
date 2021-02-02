@@ -2,9 +2,13 @@ import requests
 from openpyxl.workbook import Workbook
 from bs4 import BeautifulSoup
 speakers=[]
-link="https://www.amazon.in/s?k=top+50+speakers&rh=p_72%3A1318476031&dc&page=2&qid=1612175440&rnid=1318475031&ref=sr_pg_"
-for i in range(1,3):
-    site=requests.get(link+str(i)).text
+for i in range(1,16):
+    link="https://www.amazon.in/s?k=top+50+speakers&page="+str(i)+"&qid=1612250144&ref=sr_pg_"+str(i)
+
+    
+
+    site=requests.get(link).text
+    
     s=BeautifulSoup(site,'lxml')
     main=s.findAll("div",attrs={'class':'s-include-content-margin s-border-bottom s-latency-cf-section'})
 
@@ -22,7 +26,10 @@ for i in range(1,3):
                 Actual_price=a.find('span', attrs={'class':'a-offscreen'}).text
             else:
                 Actual_price="NA"
-        rating=d.find('span', attrs={'class':'a-icon-alt'}).text
+        if d.find('span', attrs={'class':'a-icon-alt'}):
+            rating=d.find('span', attrs={'class':'a-icon-alt'}).text
+        else:
+            rating="NA"
         speakers.append([name,Listed_price,Actual_price,rating])
                  
 
@@ -30,7 +37,7 @@ for i in range(1,3):
         df= pd.DataFrame()
         df['speakers']=speakers
 
-#print(df)
+print(df)
 
 
 
