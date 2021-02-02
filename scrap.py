@@ -33,11 +33,9 @@ for i in range(1,16):
         speakers.append([name,Listed_price,Actual_price,rating])
                  
 
-        import pandas as pd
-        df= pd.DataFrame()
-        df['speakers']=speakers
+       
 
-print(df)
+
 
 
 
